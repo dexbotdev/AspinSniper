@@ -1,0 +1,25 @@
+{
+  "name": "truelaunchsniper",
+  "version": "1.0",
+  "type": "module",
+  "dependencies": {
+    "@jpmonette/bscscan": "^0.2.4",
+    "@ptkdev/logger": "^1.8.0",
+    "abi-decoder": "^2.4.0",
+    "anbani-textart": "^1.5.0",
+    "axios": "^1.3.2",
+    "dotenv": "^16.0.3",
+    "emitter": "^0.0.5",
+    "ethers": "^5.0.21",
+    "web": "^0.0.2",
+    "web3": "^1.8.2"
+  },
+  "pkg": {
+    "scripts": "src/*/**.js", 
+    "targets": [ "node16-macos-x64" ],
+    "outputPath": "dist",
+    "assets": [
+      "node_modules/axios/dist/node/axios.cjs"
+    ]
+  }
+}
