@@ -40,12 +40,9 @@ async function start() {
     eventEmitter.on('newtoken', async (newtoken) => {
         logger.info('Recieved a Clean Token       :'+newtoken.tokenName);
 
-        if(newtoken.bnbLiquidity > minBNBLiquidty && newtoken.buyTax<5 && newtoken.sellTax<5 ){
-            logger.info('Condition Satisfied: BNB Liquidity       :'+ newtoken.bnbLiquidity);
-            logger.info('Condition Satisfied: Min Required BNB Liquidity       :'+ minBNBLiquidty);
-            logger.info('Condition Satisfied: Max buyTax  < 5      :'+ newtoken.buyTax);
-            logger.info('Condition Satisfied: Max sellTax   < 5       :'+ newtoken.sellTax);
-            logger.info('Buying Token with BNB Amount       :'+bnbToBuy);
+             logger.info('Condition Satisfied: BNB Liquidity       :'+ newtoken.bnbLiquidity);
+            logger.info('Condition Satisfied: Min Required BNB Liquidity       :'+ minBNBLiquidty); 
+            logger.info('Buying Token with BNB Amount       :'+bnbToBuy); 
             let amountOutMin = 0;
             //We buy x amount of the new token for our wbnb
             const amountIn = ethers.utils.parseUnits(bnbToBuy.toString(), 'ether');
@@ -59,8 +56,9 @@ async function start() {
                 `Buying Token
                 =================
                 tokenIn: ${(bnbToBuy).toString()}   (BNB)
-                tokenOut: ${(amountOutMin / 1e-18).toString()} ${newtoken.tokenName}
+                tokenOut: ${(amountOutMin / 1e-9).toString()} ${newtoken.tokenName}
               `);
+              eventEmitter.removeAllListeners();
 
               try{
                 const tx = await router.swapExactTokensForTokensSupportingFeeOnTransferTokens(
@@ -81,9 +79,7 @@ async function start() {
                 logger.error('Failed Purchase - '+ error.message);
               }
               
-        } else {
-            logger.error('Does not meet Conditions for Trade, less Liquidity,High Taxes');
-        }
+        
 
   });
   main(eventEmitter);
